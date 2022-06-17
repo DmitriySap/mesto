@@ -29,48 +29,16 @@
                     </button>
             </section>
             <section class="cards page__cards">
-                <div class="card page__card">
-                    <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Карачаевск</p>
-                        <button type = "button" class="card__like-button"></button>
+                <template class = "card-template">
+                    <div class="card page__card">
+                        <button class="card__delete-button"></button>
+                        <img src="#" alt="" class="card__image">
+                        <div class="card__container">
+                            <p class="card__title"></p>
+                            <button type = "button" class="card__like-button"></button>
+                        </div>
                     </div>
-                </div>
-                <div class="card page__card">
-                    <img src="./images/Эльбрус.jpg" alt="Эльбрус" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Гора Эльбрус</p>
-                        <button type = "button" class="card__like-button"></button>
-                    </div>
-                </div>
-                <div class="card page__card">
-                    <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Домбай</p>
-                        <button type = "button" class="card__like-button"></button>
-                    </div>
-                </div>
-                <div class="card page__card">
-                    <img src="./images/Эльбрус.jpg" alt="Эльбрус" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Гора Эльбрус</p>
-                        <button type = "button" class="card__like-button"></button>
-                    </div>
-                </div>
-                <div class="card page__card">
-                    <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Домбай</p>
-                        <button type = "button" class="card__like-button"></button>
-                    </div>
-                </div>
-                <div class="card page__card">
-                    <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-                    <div class="card__container">
-                        <p class="card__title">Карачаево-Черкесия</p>
-                        <button type = "button" class="card__like-button"></button>
-                    </div>
-                </div>
+                </template>
             </section>
         </main>
         <footer class="footer page__footer">
@@ -88,6 +56,29 @@
                     <button type = "submit" class="popup__save-button">Сохранить</button>
                 </form>
             </div>
+        </div>
+    </div>
+    <div class="popup-add">
+        <div class="popup-add__body">
+            <div class="popup-add__content">
+                <button type = "button" class="popup-add__close"></button>
+                <h3 class="popup-add__title">Новое место</h3>
+                <form name = "popupForm" class="popup-add__form">
+                    <input type="text" name = "firstname" placeholder = "Название" class="popup-add__input popup-add__input_content_name" required>
+                    <input type="text" name = "description" placeholder = "Ссылка на картинку" class="popup-add__input popup-add__input_content_description" required>
+                    <button type = "submit" class="popup-add__save-button">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="popup-fullscreen-card">
+        <div class="popup-fullscreen-card__body">
+            <div class="popup-fullscreen-card__content">
+                <img src="" alt="" class="popup-fullscreen-card__image">
+                <button type = "button" class="popup-fullscreen-card__close"></button>
+                <h3 class="popup-fullscreen-card__title"></h3>
+            </div>
+            
         </div>
     </div>
     <script src = "./scripts/index.js"></script>

@@ -1,42 +1,102 @@
 const editBtn = document.querySelector('.profile__edit-button');
+
 const popup = document.querySelector('.popup');
 const popupCloseBtn = document.querySelector('.popup__close');
+
 const profileName = document.querySelector('.profile__name');
 const nameField = document.querySelector('.popup__input_content_name');
+
 const profileDescription = document.querySelector('.profile__description');
 const descriptionField = document.querySelector('.popup__input_content_description');
+
 const formEl = document.querySelector('.popup__form');
+
+const addBtn = document.querySelector('.profile__add-button');
+
+const popupAddCard = document.querySelector('.popup-add');
+const popupAddClose = document.querySelector('.popup-add__close');
+
+const addFormEl = document.querySelector('.popup-add__form');
+
+const cardSaveBtn = document.querySelector('.popup-add__save-button');
 
 const initialCards = [
     {
       name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+      alt: 'Архыз'
     },
     {
       name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+      alt: 'Челябинская область'
     },
     {
       name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+      alt: 'Иваново'
     },
     {
       name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+      alt: 'Камчатка'
     },
     {
       name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+      alt: 'Холмогорский район'
     },
     {
       name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+      alt: 'Байкал'
     }
   ];
 
-function createCard(name, link) {
-  
+const cardsContainer = document.querySelector('.cards');
+const cardTemplate = document.querySelector('.card-template').content;
+
+const fullScreenImgPopup = document.querySelector('.popup-fullscreen-card');
+
+//удаление карточки
+function deleteCard(){
+  const deleteBtn = document.querySelector('.card__delete-button');
+  deleteBtn.addEventListener('click', e => {
+    const el = e.currentTarget.parentElement;
+    el.remove();
+   })
 }
+
+//первоначальный рендеринг карточек из массива 
+initialCards.forEach(function (el) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+  cardElement.querySelector('.card__title').textContent = el.name;
+  cardElement.querySelector('.card__image').src = el.link;
+  cardElement.querySelector('.card__image').alt = el.alt;
+
+  cardsContainer.append(cardElement);
+  
+})
+
+//добавление карточки пользователем
+function addCard(nameValue, srcValue) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  
+  cardElement.querySelector('.card__title').textContent = nameValue;
+  cardElement.querySelector('.card__image').src = srcValue;
+  
+  cardsContainer.prepend(cardElement);
+}
+
+  cardSaveBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    const cardNameField = document.querySelector('.popup-add__input_content_name');
+    const cardSrcField = document.querySelector('.popup-add__input_content_description');
+  
+    addCard(cardNameField.value, cardSrcField.value);
+    closePopup(popupAddCard);
+  })
 
 function openPopup(popupEl) {
     popupEl.classList.add('popup_type_is-open');
@@ -61,4 +121,12 @@ formEl.addEventListener('submit', function(event) {
     profileName.textContent = nameField.value;
     profileDescription.textContent = descriptionField.value;
     closePopup(popup);
+})
+
+addBtn.addEventListener('click', function() {
+  openPopup(popupAddCard);
+})
+
+popupAddClose.addEventListener('click', function() {
+  closePopup(popupAddCard)
 })
