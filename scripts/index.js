@@ -18,8 +18,6 @@ const popupAddClose = document.querySelector('.popup-add__close');
 
 const addFormEl = document.querySelector('.popup-add__form');
 
-const cardSaveBtn = document.querySelector('.popup-add__save-button');
-
 const initialCards = [
     {
       name: 'Архыз',
@@ -55,8 +53,7 @@ const initialCards = [
 
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.card-template').content;
-
-const fullScreenImgPopup = document.querySelector('.popup-fullscreen-card');
+const fullScreenCard = document.querySelector('.popup-fullscreen-card');
 
 //удаление карточки
 function deleteCard(){
@@ -68,35 +65,47 @@ function deleteCard(){
 }
 
 //первоначальный рендеринг карточек из массива 
-initialCards.forEach(function (el) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+initialCards.forEach(function(e) {
+  addCard(e.name, e.link);
+});
 
-  cardElement.querySelector('.card__title').textContent = el.name;
-  cardElement.querySelector('.card__image').src = el.link;
-  cardElement.querySelector('.card__image').alt = el.alt;
-
-  cardsContainer.append(cardElement);
-  
-})
-
-//добавление карточки пользователем
+//функция добавления карточки пользователем
 function addCard(nameValue, srcValue) {
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   
   cardElement.querySelector('.card__title').textContent = nameValue;
   cardElement.querySelector('.card__image').src = srcValue;
-  
+  cardElement.querySelector('.card__like-button').addEventListener('click', function(e) {
+    e.currentTarget.classList.toggle('card__like-button_type_is-active');
+  })
+
+  //открытие попапа карточки на весь экран
+  cardElement.querySelector('.card__image').addEventListener('click', function(e) {
+    openPopup(fullScreenCard);
+    const cardImage = document.querySelector('.popup-fullscreen-card__image');
+    cardImage.src = srcValue;
+    const cardTitle = document.querySelector('.popup-fullscreen-card__title');
+    cardTitle.textContent = nameValue;
+  })
+  //закрытие попапа
+  const closeFullscreenCard = document.querySelector('.popup-fullscreen-card__close');
+  closeFullscreenCard.addEventListener('click', function(){
+    closePopup(fullScreenCard);
+  })
+
   cardsContainer.prepend(cardElement);
+  deleteCard();
 }
 
-  cardSaveBtn.addEventListener('click', function(event) {
-    event.preventDefault();
-    const cardNameField = document.querySelector('.popup-add__input_content_name');
-    const cardSrcField = document.querySelector('.popup-add__input_content_description');
+addFormEl.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const cardNameField = document.querySelector('.popup-add__input_content_name');
+  const cardSrcField = document.querySelector('.popup-add__input_content_description');
   
-    addCard(cardNameField.value, cardSrcField.value);
-    closePopup(popupAddCard);
-  })
+  addCard(cardNameField.value, cardSrcField.value);
+  closePopup(popupAddCard);
+  addFormEl.reset();
+})
 
 function openPopup(popupEl) {
     popupEl.classList.add('popup_type_is-open');
@@ -130,3 +139,4 @@ addBtn.addEventListener('click', function() {
 popupAddClose.addEventListener('click', function() {
   closePopup(popupAddCard)
 })
+
