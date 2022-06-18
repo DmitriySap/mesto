@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+</head>
+<body class = "body">
+    <div class="page">
+        <header class="header page__header">
+            <img src="./images/Vector.svg" alt="Логотип МЕСТО" class="header__logo">
+        </header>
+        <main class="content">
+            <section class="profile page__profile">
+                <div class="profile__info">
+                    <img src="./images/profile_logo.jpg" alt="Аватар профиля" class="profile__avatar">
+                    <div class="profile__text">
+                        <div class="profile__name-edit">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button type = "button" class="profile__edit-button">
+                            </button>  
+                        </div>
+                        <h2 class="profile__description">Исследователь океана</h2> 
+                    </div>
+                </div>
+                    <button type = "button" class="profile__add-button">
+                    </button>
+            </section>
+            <section class="cards page__cards">
+                <template class = "card-template">
+                    <div class="card page__card">
+                        <button class="card__delete-button"></button>
+                        <img src="#" alt="" class="card__image">
+                        <div class="card__container">
+                            <p class="card__title"></p>
+                            <button type = "button" class="card__like-button"></button>
+                        </div>
+                    </div>
+                </template>
+            </section>
+        </main>
+        <footer class="footer page__footer">
+            <p class="footer__copyright">© 2022 Mesto Russia</p>
+        </footer>
+    </div>
+    <div class="popup">
+        <div class="popup__body">
+            <div class="popup__content">
+                <button type = "button" class="popup__close"></button>
+                <h3 class="popup__title">Редактировать профиль</h3>
+                <form name = "popupForm" class="popup__form">
+                    <input type="text" name = "firstname" placeholder = "Имя" class="popup__input popup__input_content_name" required>
+                    <input type="text" name = "description" placeholder = "Описание профиля" class="popup__input popup__input_content_description" required>
+                    <button type = "submit" class="popup__save-button">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="popup-add">
+        <div class="popup-add__body">
+            <div class="popup-add__content">
+                <button type = "button" class="popup-add__close"></button>
+                <h3 class="popup-add__title">Новое место</h3>
+                <form name = "popupForm" class="popup-add__form">
+                    <input type="text" name = "firstname" placeholder = "Название" class="popup-add__input popup-add__input_content_name" required>
+                    <input type="text" name = "description" placeholder = "Ссылка на картинку" class="popup-add__input popup-add__input_content_description" required>
+                    <button type = "submit" class="popup-add__save-button">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="popup-fullscreen-card">
+        <div class="popup-fullscreen-card__body">
+            <div class="popup-fullscreen-card__content">
+                <img src="#" alt="" class="popup-fullscreen-card__image">
+                <button type = "button" class="popup-fullscreen-card__close"></button>
+                <h3 class="popup-fullscreen-card__title"></h3>
+            </div>
+        </div>
+    </div>
+    <script src = "./scripts/index.js"></script>
+</body>
+</html>
