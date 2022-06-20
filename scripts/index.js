@@ -1,7 +1,7 @@
 const editBtn = document.querySelector('.profile__edit-button');
 
-const popup = document.querySelector('.popup');
-const popupCloseBtn = document.querySelector('.popup__close');
+const editNamePopup = document.querySelector('.popup');
+const editNamePopupCloseBtn = document.querySelector('.popup__close');
 
 const profileName = document.querySelector('.profile__name');
 const nameField = document.querySelector('.popup__input_content_name');
@@ -9,7 +9,7 @@ const nameField = document.querySelector('.popup__input_content_name');
 const profileDescription = document.querySelector('.profile__description');
 const descriptionField = document.querySelector('.popup__input_content_description');
 
-const formEl = document.querySelector('.popup__form');
+const editFormEl = document.querySelector('.popup__form');
 
 const addBtn = document.querySelector('.profile__add-button');
 
@@ -75,6 +75,7 @@ function addCard(nameValue, srcValue) {
   
   cardElement.querySelector('.card__title').textContent = nameValue;
   cardElement.querySelector('.card__image').src = srcValue;
+  cardElement.querySelector('.card__image').alt = nameValue;
   cardElement.querySelector('.card__like-button').addEventListener('click', function(e) {
     e.currentTarget.classList.toggle('card__like-button_type_is-active');
   })
@@ -84,18 +85,21 @@ function addCard(nameValue, srcValue) {
     openPopup(fullScreenCard);
     const cardImage = document.querySelector('.popup-fullscreen-card__image');
     cardImage.src = srcValue;
+    cardImage.alt = nameValue;
     const cardTitle = document.querySelector('.popup-fullscreen-card__title');
     cardTitle.textContent = nameValue;
   })
-  //закрытие попапа
-  const closeFullscreenCard = document.querySelector('.popup-fullscreen-card__close');
-  closeFullscreenCard.addEventListener('click', function(){
-    closePopup(fullScreenCard);
-  })
-
+  
   cardsContainer.prepend(cardElement);
   deleteCard();
 }
+
+//закрытие попапа
+const closeFullscreenCard = document.querySelector('.popup-fullscreen-card__close');
+closeFullscreenCard.addEventListener('click', function(){
+  closePopup(fullScreenCard);
+})
+
 
 addFormEl.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -116,20 +120,20 @@ function closePopup(popupEl) {
 }
 
 editBtn.addEventListener('click', function() {
-    openPopup(popup);
+    openPopup(editNamePopup);
     nameField.value = profileName.textContent;
     descriptionField.value = profileDescription.textContent;
 })
 
-popupCloseBtn.addEventListener('click', function() {
-    closePopup(popup);
+editNamePopupCloseBtn.addEventListener('click', function() {
+    closePopup(editNamePopup);
 })
 
-formEl.addEventListener('submit', function(event) {
+editFormEl.addEventListener('submit', function(event) {
     event.preventDefault();
     profileName.textContent = nameField.value;
     profileDescription.textContent = descriptionField.value;
-    closePopup(popup);
+    closePopup(editNamePopup);
 })
 
 addBtn.addEventListener('click', function() {
