@@ -45,33 +45,33 @@
             <p class="footer__copyright">© 2022 Mesto Russia</p>
         </footer>
     </div>
-    <div class="popup">
+    <div class="popup popup_type_edit-name">
         <div class="popup__content">
-            <button type = "button" class="popup__close"></button>
+            <button type = "button" class="popup__close popup__close_type_edit-name"></button>
             <h3 class="popup__title">Редактировать профиль</h3>
-            <form name = "popupForm" class="popup__form">
+            <form name = "popupForm" class="popup__form popup__form_type_edit-name">
                 <input type="text" name = "firstname" placeholder = "Имя" class="popup__input popup__input_content_name" required>
                 <input type="text" name = "description" placeholder = "Описание профиля" class="popup__input popup__input_content_description" required>
                 <button type = "submit" class="popup__save-button">Сохранить</button>
             </form>
         </div>
     </div>
-    <div class="popup-add">
-        <div class="popup-add__content">
-            <button type = "button" class="popup-add__close"></button>
-            <h3 class="popup-add__title">Новое место</h3>
-            <form name = "popupForm" class="popup-add__form">
-                <input type="text" name = "firstname" placeholder = "Название" class="popup-add__input popup-add__input_content_name" required>
-                <input type="text" name = "description" placeholder = "Ссылка на картинку" class="popup-add__input popup-add__input_content_description" required>
-                <button type = "submit" class="popup-add__save-button">Создать</button>
+    <div class="popup popup_type_add-card">
+        <div class="popup__content">
+            <button type = "button" class="popup__close popup__close_type_add-card"></button>
+            <h3 class="popup__title">Новое место</h3>
+            <form name = "popupForm" class="popup__form popup__form_type_add-card">
+                <input type="text" name = "place-name" placeholder = "Название" class="popup__input popup__input_content_title" required>
+                <input type="text" name = "place-src" placeholder = "Ссылка на картинку" class="popup__input popup__input_content_src" required>
+                <button type = "submit" class="popup__save-button">Создать</button>
             </form>
         </div>
     </div>
-    <div class="popup-fullscreen-card">
-        <div class="popup-fullscreen-card__content">
-            <img src="#" alt="" class="popup-fullscreen-card__image">
-            <button type = "button" class="popup-fullscreen-card__close"></button>
-            <h3 class="popup-fullscreen-card__title"></h3>
+    <div class="popup popup_type_fullscreen-card">
+        <div class="popup__content popup__content_type_fullscreen-card">
+            <img src="#" alt="" class="popup__image">
+            <button type = "button" class="popup__close popup__close_type_fullscreen-card"></button>
+            <h3 class="popup__title popup__title_type_fullscreen-card"></h3>
         </div>
     </div>
     <script src = "./scripts/index.js"></script>

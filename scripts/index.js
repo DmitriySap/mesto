@@ -1,7 +1,7 @@
 const editBtn = document.querySelector('.profile__edit-button');
 
-const editNamePopup = document.querySelector('.popup');
-const editNamePopupCloseBtn = document.querySelector('.popup__close');
+const editNamePopup = document.querySelector('.popup_type_edit-name');
+const editNamePopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
 
 const profileName = document.querySelector('.profile__name');
 const nameField = document.querySelector('.popup__input_content_name');
@@ -9,14 +9,14 @@ const nameField = document.querySelector('.popup__input_content_name');
 const profileDescription = document.querySelector('.profile__description');
 const descriptionField = document.querySelector('.popup__input_content_description');
 
-const editFormEl = document.querySelector('.popup__form');
+const editFormEl = document.querySelector('.popup__form_type_edit-name');
 
 const addBtn = document.querySelector('.profile__add-button');
 
-const addCardPopup = document.querySelector('.popup-add');
-const addClosePopup = document.querySelector('.popup-add__close');
+const addCardPopup = document.querySelector('.popup_type_add-card');
+const addClosePopup = document.querySelector('.popup__close_type_add-card');
 
-const addFormEl = document.querySelector('.popup-add__form');
+const addFormEl = document.querySelector('.popup__form_type_add-card');
 
 const initialCards = [
     {
@@ -53,7 +53,7 @@ const initialCards = [
 
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.card-template').content;
-const fullScreenCard = document.querySelector('.popup-fullscreen-card');
+const fullScreenCard = document.querySelector('.popup_type_fullscreen-card');
 
 //первоначальный рендеринг карточек из массива 
 initialCards.forEach(function(e) {
@@ -80,10 +80,10 @@ function createCard(nameValue, srcValue) {
   //открытие попапа карточки на весь экран
   cardElement.querySelector('.card__image').addEventListener('click', function(e) {
     openPopup(fullScreenCard);
-    const cardImage = document.querySelector('.popup-fullscreen-card__image');
+    const cardImage = document.querySelector('.popup__image');
     cardImage.src = srcValue;
     cardImage.alt = nameValue;
-    const cardTitle = document.querySelector('.popup-fullscreen-card__title');
+    const cardTitle = document.querySelector('.popup__title_type_fullscreen-card');
     cardTitle.textContent = nameValue;
   })
   
@@ -97,16 +97,15 @@ function addCard(name, link) {
 }
 
 //закрытие попапа
-  const closeFullscreenCard = document.querySelector('.popup-fullscreen-card__close');
+  const closeFullscreenCard = document.querySelector('.popup__close_type_fullscreen-card');
   closeFullscreenCard.addEventListener('click', function(){
     closePopup(fullScreenCard);
   })
 
 addFormEl.addEventListener('submit', function(event) {
   event.preventDefault();
-  const cardNameField = document.querySelector('.popup-add__input_content_name');
-  const cardSrcField = document.querySelector('.popup-add__input_content_description');
-  
+  const cardNameField = document.querySelector('.popup__input_content_title');
+  const cardSrcField = document.querySelector('.popup__input_content_src');
   addCard(cardNameField.value, cardSrcField.value);
   closePopup(addCardPopup);
   addFormEl.reset();
