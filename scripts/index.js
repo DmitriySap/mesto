@@ -13,6 +13,10 @@ const editFormEl = document.querySelector('.popup__form_type_edit-name');
 
 const addBtn = document.querySelector('.profile__add-button');
 
+const popupEditNameOverlay = document.querySelector('.popup__overlay_type_edit-name');
+const popupAddCardOverlay = document.querySelector('.popup__overlay_type_add-card');
+const popupFullscreenImgOverlay = document.querySelector('.popup__overlay_type_fullscreen-card');
+
 const addCardPopup = document.querySelector('.popup_type_add-card');
 const addClosePopup = document.querySelector('.popup__close_type_add-card');
 
@@ -54,6 +58,15 @@ const initialCards = [
 const cardsContainer = document.querySelector('.cards');
 const cardTemplate = document.querySelector('.card-template').content;
 const fullScreenCard = document.querySelector('.popup_type_fullscreen-card');
+
+//закрытие попапа кликом на esc
+const closePopupByEsc = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_type_is-open'));
+  }
+}
+
+
 
 //первоначальный рендеринг карточек из массива 
 initialCards.forEach(function(e) {
@@ -112,15 +125,18 @@ addFormEl.addEventListener('submit', function(event) {
 })
 
 function openPopup(popupEl) {
-    popupEl.classList.add('popup_type_is-open');
+  popupEl.classList.add('popup_type_is-open');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 function closePopup(popupEl) {
-    popupEl.classList.remove('popup_type_is-open');
+  popupEl.classList.remove('popup_type_is-open');
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 editBtn.addEventListener('click', function() {
     openPopup(editNamePopup);
+    
     nameField.value = profileName.textContent;
     descriptionField.value = profileDescription.textContent;
 })
@@ -128,6 +144,7 @@ editBtn.addEventListener('click', function() {
 editNamePopupCloseBtn.addEventListener('click', function() {
     closePopup(editNamePopup);
 })
+
 
 editFormEl.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -144,3 +161,16 @@ addClosePopup.addEventListener('click', function() {
   closePopup(addCardPopup);
 })
 
+//закрытие попапа на оверлей 
+
+popupEditNameOverlay.addEventListener('mousedown', () => {
+  closePopup(editNamePopup);
+})
+
+popupAddCardOverlay.addEventListener('mousedown', () => {
+  closePopup(addCardPopup);
+})
+
+popupFullscreenImgOverlay.addEventListener('mousedown', () => {
+  closePopup(fullScreenCard);
+})
