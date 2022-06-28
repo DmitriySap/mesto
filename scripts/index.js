@@ -1,7 +1,7 @@
 const nameEditBtn = document.querySelector('.profile__edit-button');
 
 const nameEditPopup = document.querySelector('.popup_type_edit-name');
-const editNamePopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
+const nameEditPopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
 
 const profileName = document.querySelector('.profile__name');
 const nameField = document.querySelector('.popup__input_content_name');
@@ -19,6 +19,9 @@ const popupFullscreenImgOverlay = document.querySelector('.popup__overlay_type_f
 
 const cardAddPopup = document.querySelector('.popup_type_add-card');
 const cardAddClosePopup = document.querySelector('.popup__close_type_add-card');
+const cardImageEl = document.querySelector('.popup__image');
+const cardNameField = document.querySelector('.popup__input_content_title');
+const cardSrcField = document.querySelector('.popup__input_content_src');
 
 const formAddEl = document.querySelector('.popup__form_type_add-card');
 
@@ -100,12 +103,12 @@ function createCard(nameValue, srcValue) {
     const el = e.target.closest('.card');
     el.remove();
   })
+
   //открытие попапа карточки на весь экран
   cardElement.querySelector('.card__image').addEventListener('click', function(e) {
     openPopup(fullScreenCard);
-    const cardImage = document.querySelector('.popup__image');
-    cardImage.src = srcValue;
-    cardImage.alt = nameValue;
+    cardImageEl.src = srcValue;
+    cardImageEl.alt = nameValue;
     cardTitle.textContent = nameValue;
   })
   
@@ -132,8 +135,6 @@ const disableButton = (buttonElement, config) => {
 
 formAddEl.addEventListener('submit', function(event) {
   event.preventDefault();
-  const cardNameField = document.querySelector('.popup__input_content_title');
-  const cardSrcField = document.querySelector('.popup__input_content_src');
   addCard(cardNameField.value, cardSrcField.value);
   closePopup(cardAddPopup);
   formAddEl.reset();
@@ -158,7 +159,7 @@ nameEditBtn.addEventListener('click', function() {
     descriptionField.value = profileDescription.textContent;
 })
 
-editNamePopupCloseBtn.addEventListener('click', function() {
+nameEditPopupCloseBtn.addEventListener('click', function() {
     closePopup(nameEditPopup);
 })
 
