@@ -24,7 +24,11 @@ export const popupAddCardOverlay = document.querySelector('.popup__overlay_type_
 export const popupFullscreenImgOverlay = document.querySelector('.popup__overlay_type_fullscreen-card');
 
 export const formAddEl = document.querySelector('.popup__form_type_add-card');
+export const formInputTitle = document.querySelector('.popup__input_content_title');
+export const formInputLink = document.querySelector('.popup__input_content_src');
 
+export const fullScreenImage = document.querySelector('.popup__image');
+export const fullScreenImageDescription = document.querySelector('.popup__title_type_fullscreen-card');
 export const fullScreenCard = document.querySelector('.popup_type_fullscreen-card');
 
 export const cardsContainer = document.querySelector('.cards');

@@ -1,8 +1,8 @@
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
-import {nameEditBtn, nameEditPopup, nameEditPopupCloseBtn, profileName, nameField, profileDescription, descriptionField,
-        formEditEl, cardAddBtn, popupEditNameOverlay, popupAddCardOverlay, popupFullscreenImgOverlay, cardAddPopup,
-        cardAddClosePopup, fullScreenCard, formAddEl, cardAddButton, initialCards, config, cardsContainer} from './utils.js';
+import {nameEditBtn, nameEditPopup, nameEditPopupCloseBtn, profileName, nameField, profileDescription, descriptionField, formInputLink, formInputTitle,
+        formEditEl, cardAddBtn, popupEditNameOverlay, popupAddCardOverlay, popupFullscreenImgOverlay, cardAddPopup, fullScreenImage,
+        cardAddClosePopup, fullScreenCard, formAddEl, cardAddButton, initialCards, config, cardsContainer, fullScreenImageDescription} from './utils.js';
 
 //валидация форм
 const formAddValidation = new FormValidator(config, formAddEl);
@@ -11,10 +11,17 @@ const formEditValidator = new FormValidator(config, formEditEl);
 formAddValidation.enableValidation();
 formEditValidator.enableValidation();
 
+//функция для создания карточки
+function createCard(item) {
+  const card = new Card(item, '.card-template', handleOpenImagePopup);
+  const cardEl = card.generateCard();
+
+  return cardEl;
+}
+
 //первоначальный рендеринг карточек из массива
 initialCards.forEach((item) => {
-  const card = new Card(item, '.card-template');
-  const cardEl = card.generateCard();
+  const cardEl = createCard(item);
   cardsContainer.prepend(cardEl);
 });
 
@@ -22,11 +29,11 @@ initialCards.forEach((item) => {
 function addCard() {
   //выбираем поля для класса Card
   const cardData = {
-    name: document.querySelector('.popup__input_content_title').value,
-    link: document.querySelector('.popup__input_content_src').value
+    name: formInputTitle.value,
+    link: formInputLink.value
   };
 
-  const card = new Card(cardData, '.card-template');
+  const card = new Card(cardData, '.card-template', handleOpenImagePopup);
   const cardEl = card.generateCard();
   cardsContainer.prepend(cardEl);
 };
@@ -38,12 +45,6 @@ const closePopupByEsc = (evt) => {
   };
 };
 
-//функция для отключения кнопки создать
-const disableButton = (buttonElement, config) => {
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.setAttribute('disabled', 'disabled');
-};
-
 //слушатель на добавление карточки пользователем
 formAddEl.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -53,7 +54,7 @@ formAddEl.addEventListener('submit', function(event) {
   closePopup(cardAddPopup);
   formAddEl.reset();
   //отключаем кнопку создать после добавления карточки
-  disableButton(cardAddButton, config);
+  formAddValidation.disableSubmitButton();
 });
 
 //слушатель на изменение никнейма
@@ -73,6 +74,17 @@ function closePopup(popupEl) {
   popupEl.classList.remove('popup_type_is-open');
   document.removeEventListener('keydown', closePopupByEsc);
 };
+
+function handleOpenImagePopup(name, link) {
+  fullScreenImage.src = link; 
+  fullScreenImage.alt = name; 
+  fullScreenImageDescription.textContent = name; 
+  openPopup(fullScreenCard); 
+}  
+
+document.querySelector('.popup__close_type_fullscreen-card').addEventListener('click', () => {
+  closePopup(fullScreenCard);
+})
 
 nameEditBtn.addEventListener('click', function() {
     openPopup(nameEditPopup);
@@ -105,3 +117,4 @@ popupAddCardOverlay.addEventListener('mousedown', () => {
 popupFullscreenImgOverlay.addEventListener('mousedown', () => {
   closePopup(fullScreenCard);
 });
+
