@@ -1,193 +1,107 @@
-const nameEditBtn = document.querySelector('.profile__edit-button');
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+import {nameEditBtn, nameEditPopup, nameEditPopupCloseBtn, profileName, nameField, profileDescription, descriptionField,
+        formEditEl, cardAddBtn, popupEditNameOverlay, popupAddCardOverlay, popupFullscreenImgOverlay, cardAddPopup,
+        cardAddClosePopup, fullScreenCard, formAddEl, cardAddButton, initialCards, config, cardsContainer} from './utils.js';
 
-const nameEditPopup = document.querySelector('.popup_type_edit-name');
-const nameEditPopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
+//валидация форм
+const formAddValidation = new FormValidator(config, formAddEl);
+const formEditValidator = new FormValidator(config, formEditEl);
 
-const profileName = document.querySelector('.profile__name');
-const nameField = document.querySelector('.popup__input_content_name');
+formAddValidation.enableValidation();
+formEditValidator.enableValidation();
 
-const profileDescription = document.querySelector('.profile__description');
-const descriptionField = document.querySelector('.popup__input_content_description');
+//первоначальный рендеринг карточек из массива
+initialCards.forEach((item) => {
+  const card = new Card(item, '.card-template');
+  const cardEl = card.generateCard();
+  cardsContainer.prepend(cardEl);
+});
 
-const formEditEl = document.querySelector('.popup__form_type_edit-name');
+//функция добавления карточки пользователем
+function addCard() {
+  //выбираем поля для класса Card
+  const cardData = {
+    name: document.querySelector('.popup__input_content_title').value,
+    link: document.querySelector('.popup__input_content_src').value
+  };
 
-const cardAddBtn = document.querySelector('.profile__add-button');
-
-const popupEditNameOverlay = document.querySelector('.popup__overlay_type_edit-name');
-const popupAddCardOverlay = document.querySelector('.popup__overlay_type_add-card');
-const popupFullscreenImgOverlay = document.querySelector('.popup__overlay_type_fullscreen-card');
-
-const cardAddPopup = document.querySelector('.popup_type_add-card');
-const cardAddClosePopup = document.querySelector('.popup__close_type_add-card');
-const cardImageEl = document.querySelector('.popup__image');
-const cardNameField = document.querySelector('.popup__input_content_title');
-const cardSrcField = document.querySelector('.popup__input_content_src');
-
-const formAddEl = document.querySelector('.popup__form_type_add-card');
-
-const cardTitle = document.querySelector('.popup__title_type_fullscreen-card');
-
-const cardAddButton = document.querySelector('#save-button');
-
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-      alt: 'Архыз'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-      alt: 'Челябинская область'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-      alt: 'Иваново'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-      alt: 'Камчатка'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-      alt: 'Холмогорский район'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-      alt: 'Байкал'
-    }
-  ];
-
-const config = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_type_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_type_active'
+  const card = new Card(cardData, '.card-template');
+  const cardEl = card.generateCard();
+  cardsContainer.prepend(cardEl);
 };
-
-const cardsContainer = document.querySelector('.cards');
-const cardTemplate = document.querySelector('.card-template').content;
-const fullScreenCard = document.querySelector('.popup_type_fullscreen-card');
 
 //закрытие попапа кликом на esc
 const closePopupByEsc = (evt) => {
   if (evt.key === 'Escape') {
     closePopup(document.querySelector('.popup_type_is-open'));
-  }
-}
+  };
+};
 
-//первоначальный рендеринг карточек из массива 
-initialCards.forEach(function(e) {
-  addCard(e.name, e.link);
-});
-
-//функция создания карточки 
-function createCard(nameValue, srcValue) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__image');
-  cardElement.querySelector('.card__title').textContent = nameValue;
-  cardImage.src = srcValue;
-  cardImage.alt = nameValue;
-  //лайк карточки 
-  cardElement.querySelector('.card__like-button').addEventListener('click', function(e) {
-    e.currentTarget.classList.toggle('card__like-button_type_is-active');
-  })
-  //удаление карточки
-  cardElement.querySelector('.card__delete-button').addEventListener('click', function(e) {
-    const el = e.target.closest('.card');
-    el.remove();
-  })
-
-  //открытие попапа карточки на весь экран
-  cardElement.querySelector('.card__image').addEventListener('click', function(e) {
-    openPopup(fullScreenCard);
-    cardImageEl.src = srcValue;
-    cardImageEl.alt = nameValue;
-    cardTitle.textContent = nameValue;
-  })
-  
-  return cardElement;
-}
-
-//функция добавления карточки пользователем 
-function addCard(name, link) {
-  const card = createCard(name, link);
-  cardsContainer.prepend(card);
-}
-
-//закрытие попапа
-  const closeFullscreenCard = document.querySelector('.popup__close_type_fullscreen-card');
-  closeFullscreenCard.addEventListener('click', function(){
-    closePopup(fullScreenCard);
-  })
-
-//функция для отключения кнопки создать 
+//функция для отключения кнопки создать
 const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.setAttribute('disabled', 'disabled');
 };
 
+//слушатель на добавление карточки пользователем
 formAddEl.addEventListener('submit', function(event) {
   event.preventDefault();
-  addCard(cardNameField.value, cardSrcField.value);
+
+  addCard();
+
   closePopup(cardAddPopup);
   formAddEl.reset();
-  //вызываем функцию для отключения кнопки создать
-  disableButton(cardAddButton, config)
-})
+  //отключаем кнопку создать после добавления карточки
+  disableButton(cardAddButton, config);
+});
+
+//слушатель на изменение никнейма
+formEditEl.addEventListener('submit', function(event) {
+  event.preventDefault();
+  profileName.textContent = nameField.value;
+  profileDescription.textContent = descriptionField.value;
+  closePopup(nameEditPopup);
+});
 
 function openPopup(popupEl) {
   popupEl.classList.add('popup_type_is-open');
   document.addEventListener('keydown', closePopupByEsc);
-}
+};
 
 function closePopup(popupEl) {
   popupEl.classList.remove('popup_type_is-open');
   document.removeEventListener('keydown', closePopupByEsc);
-}
+};
 
 nameEditBtn.addEventListener('click', function() {
     openPopup(nameEditPopup);
-    
+
     nameField.value = profileName.textContent;
     descriptionField.value = profileDescription.textContent;
-})
+});
 
 nameEditPopupCloseBtn.addEventListener('click', function() {
     closePopup(nameEditPopup);
-})
-
-formEditEl.addEventListener('submit', function(event) {
-    event.preventDefault();
-    profileName.textContent = nameField.value;
-    profileDescription.textContent = descriptionField.value;
-    closePopup(nameEditPopup);
-})
+});
 
 cardAddBtn.addEventListener('click', function() {
   openPopup(cardAddPopup);
-})
+});
 
 cardAddClosePopup.addEventListener('click', function() {
   closePopup(cardAddPopup);
-})
+});
 
-//закрытие попапа на оверлей 
-
+//закрытие попапа на оверлей
 popupEditNameOverlay.addEventListener('mousedown', () => {
   closePopup(nameEditPopup);
-})
+});
 
 popupAddCardOverlay.addEventListener('mousedown', () => {
   closePopup(cardAddPopup);
-})
+});
 
 popupFullscreenImgOverlay.addEventListener('mousedown', () => {
   closePopup(fullScreenCard);
-})
+});
