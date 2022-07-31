@@ -3,9 +3,10 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import {nameEditBtn, nameEditPopup, nameEditPopupCloseBtn, profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
-        formEditEl, cardAddBtn, popupEditNameOverlay, cardAddPopup, fullScreenCard, formAddEl, 
-        initialCards, config, cardsContainer} from '../utils/utils.js';
+import {nameEditPopup, profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
+        formEditEl, cardAddBtn, cardAddPopup, fullScreenCard, formAddEl,
+        initialCards, config, cardsContainer, nameEditBtn} from '../utils/utils.js';
+import UserInfo from '../components/UserInfo.js';
 
 //валидация форм
 const formAddValidation = new FormValidator(config, formAddEl);
@@ -19,21 +20,35 @@ const popupImage = new PopupWithImage(fullScreenCard);
 
 popupImage.setEventListeners();
 
-const cardAddSubmit = item => {
-  const card = createCard(item);
+//функция на отправку формы добавления карточки
+const cardAddSubmit = () => {
+  const cardData = {
+    name: formInputTitle.value,
+    link: formInputLink.value
+  };
+
+  const card = createCard(cardData);
   defaultCards.addItem(card);
   cardAddForm.close();
-  console.log(item);
 }
+
+const userInfo = new UserInfo({name: profileName,
+description: profileDescription});
 
 //попап формы
 const cardAddForm = new PopupWithForm(cardAddPopup, cardAddSubmit);
 
 cardAddForm.setEventListeners();
 
-//попап профиля
-const popupProfile = new PopupWithForm(nameEditPopup, );
+const profileEditSubmit = (item) => {
+  userInfo.setUserInfo(item);
+  profileEditForm.close();
+};
 
+//попап профиля
+const profileEditForm = new PopupWithForm(nameEditPopup, profileEditSubmit);
+
+profileEditForm.setEventListeners();
 //функция для создания карточки
 function createCard(item) {
   const card = new Card(item, '.card-template', handleOpenImagePopup);
@@ -41,7 +56,7 @@ function createCard(item) {
 
   return cardEl;
 }
-console.log(cardAddForm);
+
 //первоначальный рендеринг карточек из массива
 const defaultCards = new Section({
   items: initialCards,
@@ -50,38 +65,23 @@ const defaultCards = new Section({
     defaultCards.addItem(card);
   }
 }, cardsContainer);
-console.log(defaultCards);
+
 defaultCards.renderItem();
 
+//слушатель на кнопку добавить карточку
 cardAddBtn.addEventListener('click', () => {
   formAddValidation.disableSubmitButton();
   cardAddForm.open();
-})
+});
 
-//слушатель на изменение никнейма
-formEditEl.addEventListener('submit', function(event) {
-  event.preventDefault();
-  profileName.textContent = nameField.value;
-  profileDescription.textContent = descriptionField.value;
-  closePopup(nameEditPopup);
+//слушатель на кнопку изменения профиля
+nameEditBtn.addEventListener('click', () => {
+  const inputList = userInfo.getUserInfo();
+  nameField.value = inputList.nameInput;
+  descriptionField.value = inputList.descriptionInput;
+  profileEditForm.open();
 });
 
 function handleOpenImagePopup(name, link) {
   popupImage.open(name, link);
 };
-
-nameEditBtn.addEventListener('click', function() {
-    openPopup(nameEditPopup);
-
-    nameField.value = profileName.textContent;
-    descriptionField.value = profileDescription.textContent;
-});
-
-nameEditPopupCloseBtn.addEventListener('click', function() {
-    closePopup(nameEditPopup);
-});
-
-//закрытие попапа на оверлей
-popupEditNameOverlay.addEventListener('mousedown', () => {
-  closePopup(nameEditPopup);
-});
