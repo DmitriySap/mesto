@@ -1,4 +1,4 @@
-export class Card {
+export default class Card {
     constructor(data, cardSelector, handleOpenImagePopup) {
         this._name = data.name;
         this._src = data.link;
@@ -24,7 +24,7 @@ export class Card {
         this._element.querySelector('.card__title').textContent = this._name;
         this._image.src = this._src;
         this._image.alt = this._name;
-
+        console.log(this._element);
         return this._element;
     };
 
