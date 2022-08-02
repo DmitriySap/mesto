@@ -6,7 +6,7 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
-    background-image: url(../../../images/Close\ Icon.svg);
+    background-image: url(../../../images/CloseIcon.svg);
     transition: opacity 0.14s ease-in-out;
     padding: 0;
     position: absolute;

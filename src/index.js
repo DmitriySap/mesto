@@ -1,12 +1,13 @@
-import Card from '../components/Card.js';
-import FormValidator from '../components/FormValidator.js';
-import Section from '../components/Section.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
+import Card from './components/Card.js';
+import FormValidator from './components/FormValidator.js';
+import Section from './components/Section.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
 import {nameEditPopup, profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
         formEditEl, cardAddBtn, cardAddPopup, fullScreenCard, formAddEl,
-        initialCards, config, cardsContainer, nameEditBtn} from '../utils/utils.js';
-import UserInfo from '../components/UserInfo.js';
+        initialCards, config, cardsContainer, nameEditBtn} from './utils/utils.js';
+import UserInfo from './components/UserInfo.js';
+import './pages/index.css';
 
 //валидация форм
 const formAddValidation = new FormValidator(config, formAddEl);
