@@ -1,14 +1,13 @@
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import {nameEditPopup, profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
-        formEditEl, cardAddBtn, cardAddPopup, fullScreenCard, formAddEl,
-        initialCards, config, cardsContainer, nameEditBtn} from './utils/utils.js';
-import UserInfo from './components/UserInfo.js';
-import './pages/index.css';
-
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import {profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
+        formEditEl, cardAddBtn, formAddEl,
+        initialCards, config, cardsContainer, nameEditBtn} from '../utils/constants.js';
+import UserInfo from '../components/UserInfo.js';
+import './index.css';
 //валидация форм
 const formAddValidation = new FormValidator(config, formAddEl);
 const formEditValidator = new FormValidator(config, formEditEl);
@@ -17,17 +16,12 @@ formAddValidation.enableValidation();
 formEditValidator.enableValidation();
 
 //попап карточки
-const popupImage = new PopupWithImage(fullScreenCard);
+const popupImage = new PopupWithImage('.popup_type_fullscreen-card');
 
 popupImage.setEventListeners();
 
 //функция на отправку формы добавления карточки
-const cardAddSubmit = () => {
-  const cardData = {
-    name: formInputTitle.value,
-    link: formInputLink.value
-  };
-
+const cardAddSubmit = (cardData) => {
   const card = createCard(cardData);
   defaultCards.addItem(card);
   cardAddForm.close();
@@ -37,7 +31,7 @@ const userInfo = new UserInfo({name: profileName,
 description: profileDescription});
 
 //попап формы
-const cardAddForm = new PopupWithForm(cardAddPopup, cardAddSubmit);
+const cardAddForm = new PopupWithForm('.popup_type_add-card', cardAddSubmit);
 
 cardAddForm.setEventListeners();
 
@@ -47,7 +41,7 @@ const profileEditSubmit = (item) => {
 };
 
 //попап профиля
-const profileEditForm = new PopupWithForm(nameEditPopup, profileEditSubmit);
+const profileEditForm = new PopupWithForm('.popup_type_edit-name', profileEditSubmit);
 
 profileEditForm.setEventListeners();
 //функция для создания карточки

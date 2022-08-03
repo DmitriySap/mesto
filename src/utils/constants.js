@@ -1,6 +1,5 @@
 //для удобства подключил отдельный файл с переменными и константами
 export const nameEditBtn = document.querySelector('.profile__edit-button');
-export const nameEditPopup = document.querySelector('.popup_type_edit-name');
 export const nameEditPopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
 
 export const profileName = document.querySelector('.profile__name');
@@ -8,8 +7,6 @@ export const nameField = document.querySelector('.popup__input_content_name');
 
 export const profileDescription = document.querySelector('.profile__description');
 export const descriptionField = document.querySelector('.popup__input_content_description');
-
-export const popupEditNameOverlay = document.querySelector('.popup__overlay_type_edit-name');
 
 export const formEditEl = document.querySelector('.popup__form_type_edit-name');
 
