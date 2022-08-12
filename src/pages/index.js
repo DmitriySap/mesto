@@ -3,11 +3,15 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-import {profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink, 
+import {profileName, nameField, profileDescription, descriptionField, formInputTitle, formInputLink,
         formEditEl, cardAddBtn, formAddEl,
-        initialCards, config, cardsContainer, nameEditBtn} from '../utils/constants.js';
+        initialCards, config, cardsContainer, nameEditBtn, apiData} from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import './index.css';
+
+const api = new Api(apiData);
+
 //валидация форм
 const formAddValidation = new FormValidator(config, formAddEl);
 const formEditValidator = new FormValidator(config, formEditEl);
@@ -22,9 +26,12 @@ popupImage.setEventListeners();
 
 //функция на отправку формы добавления карточки
 const cardAddSubmit = (cardData) => {
-  const card = createCard(cardData);
-  defaultCards.addItem(card);
-  cardAddForm.close();
+  api.addNewCard(cardData)
+    .then(item => {
+      const card = createCard(cardData);
+      defaultCards.addItem(card);
+      cardAddForm.close();
+    })
 }
 
 const userInfo = new UserInfo({name: profileName,
@@ -53,15 +60,18 @@ function createCard(item) {
 }
 
 //первоначальный рендеринг карточек из массива
-const defaultCards = new Section({
-  items: initialCards,
-  renderer: (e) => {
-    const card = createCard(e);
-    defaultCards.addItem(card);
-  }
-}, cardsContainer);
-
-defaultCards.renderItem();
+api.getInitialCards()
+  .then(items => {
+    const defaultCards = new Section({
+      items: items,
+      renderer: (e) => {
+        const card = createCard(e);
+        defaultCards.addItem(card);
+      }
+    }, cardsContainer);
+    
+    defaultCards.renderItem();
+  })
 
 //слушатель на кнопку добавить карточку
 cardAddBtn.addEventListener('click', () => {
