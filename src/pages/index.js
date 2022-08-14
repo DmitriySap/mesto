@@ -63,14 +63,13 @@ function createCard(item) {
 api.getInitialCards()
   .then(items => {
     const defaultCards = new Section({
-      items: items,
       renderer: (e) => {
         const card = createCard(e);
         defaultCards.addItem(card);
       }
     }, cardsContainer);
     
-    defaultCards.renderItem();
+    defaultCards.renderItem(items);
   })
 
 //слушатель на кнопку добавить карточку
