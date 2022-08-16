@@ -15,6 +15,7 @@ export default class PopupWithForm extends Popup {
         this._inputList.forEach(item => {
             this._formValues[item.name] = item.value;
         });
+        console.log(this._formValues);
         return this._formValues;
     };
 
@@ -33,7 +34,7 @@ export default class PopupWithForm extends Popup {
         this._formEl.reset();
     };
 
-    editSaveButtonState(isLoading) {
+    toggleSaveButtonState(isLoading) {
         if (isLoading) {
             this._saveButton.textContent = 'Сохранение...';
         }

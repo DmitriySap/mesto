@@ -13,7 +13,7 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
     };
 
@@ -26,17 +26,17 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     };
 
-    editProfileInfo(user) {
+    editProfileInfo(data) {
         return fetch(`${this._host}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                name: user.name,
-                about: user.about
+                name: data.firstname,
+                about: data.description
             })
         }
         )
@@ -45,17 +45,17 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     };
 
-    addNewCard(card) {
+    addNewCard(name, link) {
         return fetch(`${this._host}/cards`, {
             method: 'POST',
             headers: this._headers,
             body: JSON.stringify({
-                name: card.name,
-                link: card.link
+                name: name,
+                link: link
             })
         })
         .then(res => {
@@ -63,12 +63,12 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     };
 
-    likeCard(like) {
-        return fetch(`${this._host}/cards${like._id}/likes`, {
+    likeCard(id) {
+        return fetch(`${this._host}/cards/${id}/likes`, {
             method: 'PUT',
             headers: this._headers
         })
@@ -77,12 +77,12 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
     };
 
-    dislikeCard(like) {
-        return fetch(`${this._host}/cards${like._id}/likes`, {
+    dislikeCard(id) {
+        return fetch(`${this._host}/cards/${id}/likes`, {
             method: 'DELETE',
             headers:this._headers
         })
@@ -91,7 +91,7 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
     }
 
@@ -105,16 +105,16 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
     };
 
-    editAvatar(avatar) {
+    editAvatar(data) {
         return fetch(`${this._host}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: avatar.avatar
+                avatar: data.link
             })
         }
         )
@@ -123,7 +123,7 @@ export default class Api {
                 return res.json();
             };
 
-            return new Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка: ${res.status}`);
         });
     };
 };

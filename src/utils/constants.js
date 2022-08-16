@@ -1,6 +1,4 @@
-//для удобства подключил отдельный файл с переменными и константами
 export const nameEditBtn = document.querySelector('.profile__edit-button');
-export const nameEditPopupCloseBtn = document.querySelector('.popup__close_type_edit-name');
 
 export const profileName = document.querySelector('.profile__name');
 export const nameField = document.querySelector('.popup__input_content_name');
@@ -9,59 +7,15 @@ export const profileDescription = document.querySelector('.profile__description'
 export const descriptionField = document.querySelector('.popup__input_content_description');
 
 export const formEditEl = document.querySelector('.popup__form_type_edit-name');
-
-export const cardAddButton = document.querySelector('#save-button');
-
-export const cardAddPopup = document.querySelector('.popup_type_add-card');
-export const cardAddClosePopup = document.querySelector('.popup__close_type_add-card');
+export const formEditAvatar = document.querySelector('.popup__form_type_edit-avatar');
+export const profileAvatar = document.querySelector('.profile__avatar');
+export const profileAvatarEditButton = document.querySelector('.profile__avatar-edit');
 
 export const cardAddBtn = document.querySelector('.profile__add-button');
 
-export const popupAddCardOverlay = document.querySelector('.popup__overlay_type_add-card');
-export const popupFullscreenImgOverlay = document.querySelector('.popup__overlay_type_fullscreen-card');
-
 export const formAddEl = document.querySelector('.popup__form_type_add-card');
-export const formInputTitle = document.querySelector('.popup__input_content_title');
-export const formInputLink = document.querySelector('.popup__input_content_src');
-
-export const fullScreenImage = document.querySelector('.popup__image');
-export const fullScreenImageDescription = document.querySelector('.popup__title_type_fullscreen-card');
-export const fullScreenCard = document.querySelector('.popup_type_fullscreen-card');
 
 export const cardsContainer = document.querySelector('.cards');
-
-export const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-      alt: 'Архыз'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-      alt: 'Челябинская область'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-      alt: 'Иваново'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-      alt: 'Камчатка'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-      alt: 'Холмогорский район'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-      alt: 'Байкал'
-    }
-  ];
 
 export const config = {
   formSelector: '.popup__form',

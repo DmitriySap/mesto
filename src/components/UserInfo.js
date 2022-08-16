@@ -8,16 +8,15 @@ export default class UserInfo {
     getUserInfo() {
         this._userInfo = {
             nameInput: this._name.textContent,
-            descriptionInput: this._description.textContent,
-            avatarInput: this._avatar.src
+            descriptionInput: this._description.textContent
         };
 
         return this._userInfo;
     };
 
     setUserInfo(data) {
-        this._name.textContent = data.firstname;
-        this._description.textContent = data.description;
+        this._name.textContent = data.name;
+        this._description.textContent = data.about;
         this._avatar.src = data.avatar;
     };
 };
